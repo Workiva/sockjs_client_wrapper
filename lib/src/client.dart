@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:js';
 
 import 'package:js/js.dart';
+import 'package:logging/logging.dart';
 import 'package:w_common/disposable_browser.dart';
 
 import 'package:sockjs_client_wrapper/src/events.dart';
@@ -19,6 +20,8 @@ import 'package:sockjs_client_wrapper/src/js_interop.dart' as js_interop;
 class SockJSClient extends Disposable {
   // The native SockJS client object.
   final js_interop.SockJS _jsClient;
+
+  final _logger = new Logger('SockJSClient');
 
   // Event stream controllers.
   final StreamController<SockJSCloseEvent> _onCloseController =
@@ -88,11 +91,20 @@ class SockJSClient extends Disposable {
   ///
   /// Optionally, a [closeCode] and [reason] can be provided.
   void close([int closeCode, String reason]) {
+    _logger.fine([
+      'close()',
+      'code: $closeCode',
+      'reason: $reason',
+    ].join('\n\t'));
     _jsClient.close(closeCode, reason);
   }
 
   /// Send data to the server.
   void send(String data) {
+    _logger.fine([
+      'send()',
+      'data: $data',
+    ].join('\n\t'));
     _jsClient.send(data);
   }
 
@@ -119,24 +131,37 @@ class SockJSClient extends Disposable {
     });
   }
 
-  void _onClose(dynamic event) {
-    final jsEvent = new JsObject.fromBrowserObject(event);
+  void _onClose(js_interop.SockJSCloseEvent event) {
+    _logger.fine([
+      'onClose event converted',
+      'code: ${event.code}',
+      'reason: ${event.reason}',
+      'wasClean: ${event.wasClean}',
+    ].join('\n\t'));
     _onCloseController.add(new SockJSCloseEvent(
         // ignore: avoid_as
-        jsEvent['code'] as int,
+        event.code,
         // ignore: avoid_as
-        jsEvent['reason'] as String,
+        event.reason,
         // ignore: avoid_as
-        wasClean: jsEvent['wasClean'] as bool));
+        wasClean: event.wasClean));
   }
 
-  void _onMessage(dynamic event) {
-    final jsEvent = new JsObject.fromBrowserObject(event);
+  void _onMessage(js_interop.SockJSMessageEvent event) {
+    _logger.fine([
+      'onMessage event converted',
+      'data: ${event.data}',
+    ].join('\n\t'));
     // ignore: avoid_as
-    _onMessageController.add(new SockJSMessageEvent(jsEvent['data'] as String));
+    _onMessageController.add(new SockJSMessageEvent(event.data));
   }
 
   void _onOpen(dynamic _) {
+    _logger.fine([
+      'onOpen event received',
+      'transport: ${_jsClient.transport}',
+      'url: ${Uri.parse(_jsClient.url)}',
+    ].join('\n\t'));
     _onOpenController.add(
         new SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
   }
@@ -155,10 +180,18 @@ class SockJSOptions {
   /// can be useful if you need to disable certain fallback transports.
   final List<String> transports;
 
+  final _logger = new Logger('SockJSOptions');
+
   /// Construct a [SockJSOptions] instance to be passed to the [SockJSClient]
   /// constructor.
   SockJSOptions({this.server, this.transports});
 
-  js_interop.SockJSOptions _toJs() =>
-      new js_interop.SockJSOptions(server: server, transports: transports);
+  js_interop.SockJSOptions _toJs() {
+    _logger.fine([
+        'transforming for JS interop',
+        'server: $server',
+        'transports: $transports',
+    ].join('\n\t'));
+    return new js_interop.SockJSOptions(server: server, transports: transports);
+  }
 }

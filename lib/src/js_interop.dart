@@ -40,12 +40,36 @@ class SockJS {
   external void send(String data);
 }
 
+/// Interface definition for the JS "close" event that is emitted from the
+/// SockJS client.
+@JS()
+@anonymous
+class SockJSCloseEvent {
+  /// The close code.
+  external int get code;
+
+  /// The reason for closing.
+  external String get reason;
+
+  /// Whether or not the close was "clean".
+  external bool get wasClean;
+}
+
+/// Interface definition for the JS "message" event that is emitted from the
+/// SockJS client.
+@JS()
+@anonymous
+class SockJSMessageEvent {
+  /// The string payload for this message event.
+  external String get data;
+}
+
 /// Interface definition for an anonymous JS object that represents
 /// configuration for a SockJS Client.
 @JS()
 @anonymous
 class SockJSOptions {
-  /// Constructs an anonymous JS object with `server` and `transports` entries.
+  /// Constructs an anonymous JS object with `server` and `transports` fields.
   ///
   /// Example:
   ///

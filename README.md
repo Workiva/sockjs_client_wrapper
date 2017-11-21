@@ -36,7 +36,27 @@ Future<Null> main() async {
 }
 ```
 
+## Development
 
+**To install dependencies:**
+```bash
+$ npm install
+$ pub get
+```
+
+**To run the example:**
+```bash
+$ node example/server.js
+```
+
+```bash
+$ pub serve example
+```
+
+**To run tests:**
+```bash
+$ pub run ddev test
+```
 
 
 [js-dart-package]: https://pub.dartlang.org/packages/js
