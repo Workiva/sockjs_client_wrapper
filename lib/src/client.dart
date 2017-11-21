@@ -188,9 +188,9 @@ class SockJSOptions {
 
   js_interop.SockJSOptions _toJs() {
     _logger.fine([
-        'transforming for JS interop',
-        'server: $server',
-        'transports: $transports',
+      'transforming for JS interop',
+      'server: $server',
+      'transports: $transports',
     ].join('\n\t'));
     return new js_interop.SockJSOptions(server: server, transports: transports);
   }
