@@ -59,11 +59,8 @@ class SockJSClient extends Disposable {
   SockJSClient(Uri uri, {SockJSOptions options}) {
     try {
       _jsClient = new js_interop.SockJS(uri.toString(), null, options?._toJs());
-    } on String catch (e) {
-      if (e == 'Not a valid JS object') {
-        throw new MissingSockJSLibError();
-      }
-      rethrow;
+    } catch (e) {
+      throw new MissingSockJSLibError();
     }
     manageStreamController(_onCloseController);
     manageStreamController(_onMessageController);
