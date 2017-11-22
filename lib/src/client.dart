@@ -9,6 +9,14 @@ import 'package:w_common/disposable_browser.dart';
 import 'package:sockjs_client_wrapper/src/events.dart';
 import 'package:sockjs_client_wrapper/src/js_interop.dart' as js_interop;
 
+/// Error thrown when the required `sockjs.js` library has not been loaded.
+class MissingSockJSLibError extends Error {
+  @override
+  String toString() =>
+      'Missing SockJS Library: sockjs.js or sockjs_prod.js must be loaded '
+      '(details: https://goo.gl/VGM6Pr).';
+}
+
 /// A SockJS Client that acts and looks like a browser WebSocket object.
 ///
 /// See https://github.com/sockjs/sockjs-client for more information on SockJS
@@ -19,7 +27,7 @@ import 'package:sockjs_client_wrapper/src/js_interop.dart' as js_interop;
 /// accessible from Dart.
 class SockJSClient extends Disposable {
   // The native SockJS client object.
-  final js_interop.SockJS _jsClient;
+  js_interop.SockJS _jsClient;
 
   final _logger = new Logger('SockJSClient');
 
@@ -48,9 +56,12 @@ class SockJSClient extends Disposable {
   ///     final options = new SockJSOptions(
   ///         transports: ['websocket', 'xhr-streaming', 'xhr-polling']);
   ///     final client = new SockJSClient(uri, options: options);
-  SockJSClient(Uri uri, {SockJSOptions options})
-      : _jsClient =
-            new js_interop.SockJS(uri.toString(), null, options?._toJs()) {
+  SockJSClient(Uri uri, {SockJSOptions options}) {
+    try {
+      _jsClient = new js_interop.SockJS(uri.toString(), null, options?._toJs());
+    } catch (e) {
+      throw new MissingSockJSLibError();
+    }
     manageStreamController(_onCloseController);
     manageStreamController(_onMessageController);
     manageStreamController(_onOpenController);

@@ -22,7 +22,7 @@ Future<Null> main(List<String> args) async {
   config.test
     ..before = <Function>[_startServer]
     ..after = <Function>[_stopServer]
-    ..unitTests = <String>['test/sockjs_client_wrapper_test.dart']
+    ..unitTests = <String>['test/']
     ..platforms = <String>['content-shell']
     ..pubServe = true;
 
