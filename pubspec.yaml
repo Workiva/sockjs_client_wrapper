@@ -1,5 +1,13 @@
 name: sockjs_client_wrapper
 version: 0.0.0
+description: A Dart wrapper for the `sockjs-client` JS library.
+authors:
+  - Workiva Client Platform Team <clientplatform@workiva.com>
+  - Evan Weible <evan.weible@workiva.com>
+homepage: https://github.com/Workiva/sockjs_client_wrapper
+
+environment:
+  sdk: ">=1.24.2 <2.0.0"
 
 dependencies:
   js: ^0.6.1
@@ -11,6 +19,7 @@ dev_dependencies:
   coverage: ^0.9.3
   dart_dev: ^1.8.1
   dart_style: ^1.0.8
+  dependency_validator: ^1.0.0
   test: ^0.12.27+1
 
 transformers:
