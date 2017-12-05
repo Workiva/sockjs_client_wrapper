@@ -1,0 +1,19 @@
+version: 1
+
+exclude:
+  - example/
+  - test/
+  - tool/
+
+raven_monitored_classes: null
+
+raven_monitored_files:
+  ^lib/sockjs.js$:
+    reason: socket handling
+  ^lib/sockjs_prod.js$:
+    reason: socket handling
+
+raven_monitored_functions: null
+
+raven_monitored_keywords: null
+
