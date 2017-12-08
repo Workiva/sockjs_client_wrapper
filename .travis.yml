@@ -29,13 +29,13 @@ before_install:
 
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sleep 10 # give xvfb some time to start
+  - sleep 3 # give xvfb some time to start
 script:
   - npm install
   - pub get --packages-dir
   - pub run dart_dev format --check
   - pub run dart_dev analyze
   - pub run dependency_validator --ignore browser,coverage,dart_style
-  - xvfb-run -s '-screen 0 1024x768x24' pub run dart_dev test
-  - xvfb-run -s '-screen 0 1024x768x24' pub run dart_dev coverage --no-html
+  - pub run dart_dev test
+  - pub run dart_dev coverage --no-html
   - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
