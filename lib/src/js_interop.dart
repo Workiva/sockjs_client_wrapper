@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @JS()
-library sockjs_client;
+library sockjs_client_wrapper.src.js_interop;
 
 import 'package:js/js.dart';
 
