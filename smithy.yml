@@ -6,9 +6,10 @@ runner_image: drydock-prod.workiva.net/workiva/smithy-runner-generator:179735 # 
 
 before_script:
   - dart --version
+  - pub get --packages-dir
 
 script:
-  - pub get --packages-dir
+  - ./tool/check_version.sh
   
 artifacts:
   dart-dependencies: # For RM dependency tracking
