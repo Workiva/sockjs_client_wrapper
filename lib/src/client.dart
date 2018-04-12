@@ -70,6 +70,7 @@ class SockJSClient extends Disposable {
   SockJSClient(Uri uri, {SockJSOptions options}) {
     try {
       _jsClient = new js_interop.SockJS(uri.toString(), null, options?._toJs());
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       throw new MissingSockJSLibError();
     }
@@ -159,6 +160,7 @@ class SockJSClient extends Disposable {
     _onMessageController.add(new SockJSMessageEvent(event.data));
   }
 
+  // ignore: avoid_annotating_with_dynamic
   void _onOpen(dynamic _) {
     _onOpenController.add(
         new SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));

@@ -1,0 +1,31 @@
+# All of the tests for this library require that a SockJS server be running:
+#
+#     $ node tool/server.js
+#
+# In order to ensure our code is compatible with the Dart Dev Compiler, all
+# tests expect to be run against a pub serve instance:
+#
+#     $ pub serve test --web-compiler=dartdevc --port=8081
+#
+# By default, all unit tests will be run in Chrome and the VM:
+#
+#     $ pub run test
+#
+# If you have Dart 2.x installed, include the `dart2` preset to exclude tests
+# that do not work with Dart 2.x (the feature that is incompatible with Dart 2
+# will be removed soon):
+#
+#     $ pub run test -P dart2
+#
+# Once Dart 2 is officially released and we start requiring it, we will switch
+# to using `build_runner` to run tests (it is more performant and supports
+# running a test watcher).
+platforms:
+- chrome
+- vm
+
+pub_serve: 8081
+
+presets:
+  travis:
+    reporter: expanded

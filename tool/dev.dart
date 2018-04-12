@@ -40,7 +40,7 @@ Future<Null> main(List<String> args) async {
     ..before = <Function>[_startServer]
     ..after = <Function>[_stopServer]
     ..unitTests = <String>['test/']
-    ..platforms = <String>['content-shell']
+    ..platforms = <String>['chrome']
     ..pubServe = true;
 
   await dev(args);
