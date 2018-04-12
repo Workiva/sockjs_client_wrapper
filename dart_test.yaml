@@ -29,3 +29,10 @@ pub_serve: 8081
 presets:
   travis:
     reporter: expanded
+    override_platforms:
+      chrome:
+        settings:
+          # Disable some security options, since this is only on Travis.
+          # https://chromium.googlesource.com/chromium/src/+/master/docs/design/sandbox.md
+          # https://docs.travis-ci.com/user/chrome#Sandboxing
+          arguments: --no-sandbox
