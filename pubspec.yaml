@@ -21,10 +21,6 @@ dev_dependencies:
   dependency_validator: ^1.0.0
   test: ^0.12.27+1
 
-dependency_overrides:
-  dart_dev:
-    path: ../dart_dev
-
 transformers:
 - test/pub_serve:
     $include: test/**_test.dart
