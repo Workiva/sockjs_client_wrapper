@@ -1,3 +1,8 @@
+## 1.0.4
+
+- Updated the SockJS library to v1.1.5 to pull in a fix for an issue
+  where xhr_streaming loops infinitely after the connection closes. 
+
 ## 1.0.3
 
 - Compatible with latest Dart 2.x dev channel and Dart Dev Compiler.
