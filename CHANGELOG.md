@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Dart 2 compatible.
+
 ## 1.0.4
 
 - Updated the SockJS library to v1.1.5 to pull in a fix for an issue
