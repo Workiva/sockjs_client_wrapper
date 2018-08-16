@@ -37,6 +37,9 @@ RUN echo "Starting the script section" && \
 		echo "script section completed"
 ARG BUILD_ARTIFACTS_DART-DEPENDENCIES=/build/pubspec.lock
 
+RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs_prod.js
+ARG BUILD_ARTIFACTS_CDN=/build/assets.tar.gz
+
 RUN mkdir /audit/
 ARG BUILD_ARTIFACTS_AUDIT=/audit/*
 
