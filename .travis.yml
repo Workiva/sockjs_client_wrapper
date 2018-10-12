@@ -4,7 +4,7 @@ language: dart
 # version line.
 dart:
   - 1.24.3
-  - 2.0.0-dev.69.5
+  - stable
 
 # Workaround for issue with sandboxed Chrome in containerized Travis builds.
 sudo: required
