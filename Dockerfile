@@ -28,9 +28,16 @@ RUN mkdir /root/.ssh && \
     eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 RUN echo "installing npm packages"
 RUN npm install
+
 RUN echo "Starting the before_script section" && \
-		dart --version && \
-		pub get && \
+		dart --version
+
+# Use pub from Dart 2 to initially resolve dependencies since it is much more efficient.
+COPY --from=dart2 /usr/lib/dart /usr/lib/dart2
+RUN echo "Running Dart 2 pub get.." && \
+	_PUB_TEST_SDK_VERSION=1.24.3 timeout 5m /usr/lib/dart2/bin/pub get --no-precompile
+
+RUN pub get && \
 		echo "before_script section completed"
 RUN echo "Starting the script section" && \
 		./tool/check_version.sh && \
