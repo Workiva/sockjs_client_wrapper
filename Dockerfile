@@ -1,4 +1,4 @@
-FROM dart2.4 as dart2
+FROM google/dart:2.4 as dart2
 FROM drydock-prod.workiva.net/workiva/smithy-runner-generator:350667 as build
 
 ARG NPM_TOKEN
