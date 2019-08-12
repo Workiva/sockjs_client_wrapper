@@ -39,6 +39,9 @@ class MissingSockJSLibError extends Error {
 /// This [SockJSClient] class is simply a wrapper that provides a typed API
 /// accessible from Dart.
 class SockJSClient extends Disposable {
+  @override
+  String get disposableTypeName => 'SockJSClient';
+
   // The native SockJS client object.
   js_interop.SockJS _jsClient;
 
