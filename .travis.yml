@@ -3,7 +3,6 @@ language: dart
 # This is the last dev version prior to dart 2 being moved to the stable
 # version line.
 dart:
-  - 1.24.3
   - stable
 
 # Workaround for issue with sandboxed Chrome in containerized Travis builds.
