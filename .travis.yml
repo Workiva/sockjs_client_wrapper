@@ -22,5 +22,5 @@ install:
 script:
   - dartanalyzer .
   - dartfmt -n --set-exit-if-changed .
-  - pub run dependency_validator -i browser,build_runner,build_test,build_web_compilers,coverage,dart_style
+  - pub run dependency_validator
   - ./tool/test.sh
