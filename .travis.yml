@@ -15,6 +15,11 @@ cache:
   directories:
     - $HOME/.pub-cache
 
+dart:
+  - 2.4.1
+  - stable
+  - dev
+
 install:
   - pub get
   - npm install
