@@ -1,5 +1,4 @@
 FROM google/dart:2.5 as dart2
-FROM drydock-prod.workiva.net/workiva/smithy-runner-generator:350667 as build
 
 ARG NPM_TOKEN
 ARG NPM_CONFIG__AUTH
@@ -32,11 +31,6 @@ RUN npm install
 
 RUN echo "Starting the before_script section" && \
 		dart --version
-
-# Use pub from Dart 2 to initially resolve dependencies since it is much more efficient.
-COPY --from=dart2 /usr/lib/dart /usr/lib/dart2
-RUN echo "Running Dart 2 pub get.." && \
-	_PUB_TEST_SDK_VERSION=1.24.3 timeout 5m /usr/lib/dart2/bin/pub get --no-precompile
 
 RUN pub get && \
 		echo "before_script section completed"
