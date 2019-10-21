@@ -47,11 +47,11 @@ class SockJSClient extends Disposable {
 
   // Event stream controllers.
   final StreamController<SockJSCloseEvent> _onCloseController =
-      new StreamController<SockJSCloseEvent>.broadcast();
+      StreamController<SockJSCloseEvent>.broadcast();
   final StreamController<SockJSMessageEvent> _onMessageController =
-      new StreamController<SockJSMessageEvent>.broadcast();
+      StreamController<SockJSMessageEvent>.broadcast();
   final StreamController<SockJSOpenEvent> _onOpenController =
-      new StreamController<SockJSOpenEvent>.broadcast();
+      StreamController<SockJSOpenEvent>.broadcast();
 
   /// Constructs a new [SockJSClient] that will attempt to connect to a SockJS
   /// server at the given [uri].
@@ -72,10 +72,10 @@ class SockJSClient extends Disposable {
   ///     final client = new SockJSClient(uri, options: options);
   SockJSClient(Uri uri, {SockJSOptions options}) {
     try {
-      _jsClient = new js_interop.SockJS(uri.toString(), null, options?._toJs());
+      _jsClient = js_interop.SockJS(uri.toString(), null, options?._toJs());
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      throw new MissingSockJSLibError();
+      throw MissingSockJSLibError();
     }
     manageStreamController(_onCloseController);
     manageStreamController(_onMessageController);
@@ -149,7 +149,7 @@ class SockJSClient extends Disposable {
   }
 
   void _onClose(js_interop.SockJSCloseEvent event) {
-    _onCloseController.add(new SockJSCloseEvent(
+    _onCloseController.add(SockJSCloseEvent(
         // ignore: avoid_as
         event.code,
         // ignore: avoid_as
@@ -160,13 +160,13 @@ class SockJSClient extends Disposable {
 
   void _onMessage(js_interop.SockJSMessageEvent event) {
     // ignore: avoid_as
-    _onMessageController.add(new SockJSMessageEvent(event.data));
+    _onMessageController.add(SockJSMessageEvent(event.data));
   }
 
   // ignore: avoid_annotating_with_dynamic
   void _onOpen(dynamic _) {
-    _onOpenController.add(
-        new SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
+    _onOpenController
+        .add(SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
   }
 }
 
@@ -188,5 +188,5 @@ class SockJSOptions {
   SockJSOptions({this.server, this.transports});
 
   js_interop.SockJSOptions _toJs() =>
-      new js_interop.SockJSOptions(server: server, transports: transports);
+      js_interop.SockJSOptions(server: server, transports: transports);
 }

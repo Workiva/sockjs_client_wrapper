@@ -57,7 +57,7 @@ List<String> _serverOutput;
 /// will be dumped all at once.
 Future<Null> _startServer() async {
   _serverOutput = <String>[];
-  _server = new TaskProcess('node', ['tool/server.js']);
+  _server = TaskProcess('node', ['tool/server.js']);
   _server.stdout.listen(_serverOutput.add);
   _server.stderr.listen(_serverOutput.add);
   // todo: wait for server to start
