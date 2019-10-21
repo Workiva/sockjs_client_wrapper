@@ -18,4 +18,3 @@ final config = {
   ...coreConfig,
   'serve': WebdevServeTool()..webdevArgs = ['example:8080']
 };
-
