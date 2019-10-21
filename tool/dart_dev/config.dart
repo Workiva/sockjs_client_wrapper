@@ -15,6 +15,7 @@
 import 'package:dart_dev/dart_dev.dart';
 
 final config = {
-  ...coreConfig
+  ...coreConfig,
+  'serve': WebdevServeTool()..webdevArgs = ['example:8080']
 };
 
