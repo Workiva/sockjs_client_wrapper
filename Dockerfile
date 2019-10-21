@@ -1,5 +1,4 @@
-FROM google/dart:2.5 as dart2
-FROM drydock-prod.workiva.net/workiva/smithy-runner-generator:350667 as build
+FROM google/dart:2.5 as build
 
 ARG NPM_TOKEN
 ARG NPM_CONFIG__AUTH
@@ -27,6 +26,12 @@ RUN mkdir /root/.ssh && \
     chmod 700 /root/.ssh/ && \
     umask 0077 && echo "$GIT_SSH_KEY" >/root/.ssh/id_rsa && \
     eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
+
+# Install npm
+RUN apt-get update && apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get update && apt-get install -y nodejs npm
+
 RUN echo "installing npm packages"
 RUN npm install
 
