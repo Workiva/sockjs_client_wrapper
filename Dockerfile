@@ -1,5 +1,4 @@
 FROM google/dart:2.5 as dart2
-FROM drydock-prod.workiva.net/workiva/smithy-runner-generator:350667 as build
 
 ARG NPM_TOKEN
 ARG NPM_CONFIG__AUTH
@@ -21,6 +20,7 @@ ARG GIT_SSH_KEY
 ARG KNOWN_HOSTS_CONTENT
 WORKDIR /build/
 ADD . /build/
+RUN apt-get update && apt-get install -y npm
 
 RUN mkdir /root/.ssh && \
     echo "$KNOWN_HOSTS_CONTENT" > "/root/.ssh/known_hosts" && \
@@ -33,17 +33,11 @@ RUN npm install
 RUN echo "Starting the before_script section" && \
 		dart --version
 
-# Use pub from Dart 2 to initially resolve dependencies since it is much more efficient.
-COPY --from=dart2 /usr/lib/dart /usr/lib/dart2
-RUN echo "Running Dart 2 pub get.." && \
-	_PUB_TEST_SDK_VERSION=1.24.3 timeout 5m /usr/lib/dart2/bin/pub get --no-precompile
-
 RUN pub get && \
 		echo "before_script section completed"
 RUN echo "Starting the script section" && \
 		./tool/check_version.sh && \
 		echo "script section completed"
-ARG BUILD_ARTIFACTS_DART-DEPENDENCIES=/build/pubspec.lock
 
 RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs_prod.js
 ARG BUILD_ARTIFACTS_CDN=/build/assets.tar.gz
