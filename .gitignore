@@ -3,3 +3,4 @@ pubspec.lock
 .dart_tool
 .pub
 .packages
+node_modules
