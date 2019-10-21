@@ -1,6 +1,5 @@
 package-lock.json
 pubspec.lock
 .dart_tool
-.pub
 .packages
 node_modules
