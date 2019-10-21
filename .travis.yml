@@ -1,10 +1,5 @@
 language: dart
 
-# This is the last dev version prior to dart 2 being moved to the stable
-# version line.
-dart:
-  - stable
-
 # Workaround for issue with sandboxed Chrome in containerized Travis builds.
 sudo: required
 addons:
@@ -19,8 +14,22 @@ install:
   - pub get
   - npm install
 
-script:
-  - dartanalyzer .
-  - dartfmt -n --set-exit-if-changed .
-  - pub run dependency_validator
-  - ./tool/test.sh
+jobs:
+  include:
+    - dart: 2.4.1
+      name: "SDK: 2.4.1"
+      script:
+        - dartanalyzer .
+        - ./tool/test.sh
+    - dart: stable
+      name: "SDK: stable"
+      script:
+        - dartanalyzer .
+        - dartfmt -n --set-exit-if-changed .
+        - pub run dependency_validator
+        - ./tool/test.sh
+    - dart: dev
+      name: "SDK: dev"
+      script:
+        - dartanalyzer .
+        - ./tool/test.sh
