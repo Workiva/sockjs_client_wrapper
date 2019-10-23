@@ -27,22 +27,8 @@ RUN mkdir /root/.ssh && \
     umask 0077 && echo "$GIT_SSH_KEY" >/root/.ssh/id_rsa && \
     eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 
-# Install npm
-RUN apt-get update && apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get update && apt-get install -y nodejs npm
-
-RUN echo "installing npm packages"
-RUN npm install
-
-RUN echo "Starting the before_script section" && \
-		dart --version
-
-RUN pub get && \
-		echo "before_script section completed"
-RUN echo "Starting the script section" && \
-		./tool/check_version.sh && \
-		echo "script section completed"
+RUN dart --version
+RUN pub get
 
 RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs_prod.js
 ARG BUILD_ARTIFACTS_CDN=/build/assets.tar.gz
