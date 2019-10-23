@@ -33,8 +33,4 @@ RUN pub get
 RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs_prod.js
 ARG BUILD_ARTIFACTS_CDN=/build/assets.tar.gz
 
-RUN mkdir /audit/
-ARG BUILD_ARTIFACTS_AUDIT=/audit/*
-
-RUN npm ls -s --json --depth=10 > /audit/npm.lock || [ $? -eq 1 ] || exit
 FROM scratch
