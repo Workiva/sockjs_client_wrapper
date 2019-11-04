@@ -1,4 +1,4 @@
-FROM drydock.workiva.net/workiva/dart2_base_image:1
+FROM drydock.workiva.net/workiva/dart2_base_image:1 as build
 
 WORKDIR /build/
 ADD . /build/
