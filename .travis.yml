@@ -20,16 +20,16 @@ jobs:
       name: "SDK: 2.4.1"
       script:
         - dartanalyzer .
-        - ./tool/test.sh
+        - pub run dart_dev test
     - dart: stable
       name: "SDK: stable"
       script:
         - dartanalyzer .
         - dartfmt -n --set-exit-if-changed .
         - pub run dependency_validator
-        - ./tool/test.sh
+        - pub run dart_dev test
     - dart: dev
       name: "SDK: dev"
       script:
         - dartanalyzer .
-        - ./tool/test.sh
+        - pub run dart_dev test
