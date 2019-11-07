@@ -38,26 +38,24 @@ Future<Null> main() async {
 
 ## Development
 
-**To install dependencies:**
+### Install dependencies
+
 ```bash
 $ npm install
 $ pub get
 ```
 
-**To run the example:**
-```bash
-$ node example/server.js
-```
+### Run the example
 
 ```bash
-$ pub serve example
+$ pub run dart_dev serve
 ```
 
-**To run tests:**
+### Run tests
+
 ```bash
-$ pub run ddev test
+$ pub run dart_dev test
 ```
-
 
 [js-dart-package]: https://pub.dartlang.org/packages/js
 [sockjs-client]: https://github.com/sockjs/sockjs-client

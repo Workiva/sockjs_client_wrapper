@@ -29,56 +29,55 @@ final _fofUri = Uri.parse('http://localhost:8600/404');
 void main() {
   group('SockJS Client', () {
     group('default', () {
-      SockJSClient createEchoClient() => new SockJSClient(_echoUri);
-      SockJSClient createCorClient() => new SockJSClient(_corUri);
-      SockJSClient create404Client() => new SockJSClient(_fofUri);
+      SockJSClient createEchoClient() => SockJSClient(_echoUri);
+      SockJSClient createCorClient() => SockJSClient(_corUri);
+      SockJSClient create404Client() => SockJSClient(_fofUri);
 
       _integrationSuite(
           'websocket', createEchoClient, createCorClient, create404Client);
     });
 
     group('websocket', () {
-      final websocketOptions = new SockJSOptions(transports: ['websocket']);
+      final websocketOptions = SockJSOptions(transports: ['websocket']);
       SockJSClient createEchoClient() =>
-          new SockJSClient(_echoUri, options: websocketOptions);
+          SockJSClient(_echoUri, options: websocketOptions);
       SockJSClient createCorClient() =>
-          new SockJSClient(_corUri, options: websocketOptions);
+          SockJSClient(_corUri, options: websocketOptions);
       SockJSClient create404Client() =>
-          new SockJSClient(_fofUri, options: websocketOptions);
+          SockJSClient(_fofUri, options: websocketOptions);
 
       _integrationSuite(
           'websocket', createEchoClient, createCorClient, create404Client);
     });
 
     group('xhr-streaming', () {
-      final xhrStreamingOptions =
-          new SockJSOptions(transports: ['xhr-streaming']);
+      final xhrStreamingOptions = SockJSOptions(transports: ['xhr-streaming']);
       SockJSClient createEchoClient() =>
-          new SockJSClient(_echoUri, options: xhrStreamingOptions);
+          SockJSClient(_echoUri, options: xhrStreamingOptions);
       SockJSClient createCorClient() =>
-          new SockJSClient(_corUri, options: xhrStreamingOptions);
+          SockJSClient(_corUri, options: xhrStreamingOptions);
       SockJSClient create404Client() =>
-          new SockJSClient(_fofUri, options: xhrStreamingOptions);
+          SockJSClient(_fofUri, options: xhrStreamingOptions);
 
       _integrationSuite(
           'xhr-streaming', createEchoClient, createCorClient, create404Client);
     });
 
     group('xhr-polling', () {
-      final xhrPollingOptions = new SockJSOptions(transports: ['xhr-polling']);
+      final xhrPollingOptions = SockJSOptions(transports: ['xhr-polling']);
       SockJSClient createEchoClient() =>
-          new SockJSClient(_echoUri, options: xhrPollingOptions);
+          SockJSClient(_echoUri, options: xhrPollingOptions);
       SockJSClient createCorClient() =>
-          new SockJSClient(_corUri, options: xhrPollingOptions);
+          SockJSClient(_corUri, options: xhrPollingOptions);
       SockJSClient create404Client() =>
-          new SockJSClient(_fofUri, options: xhrPollingOptions);
+          SockJSClient(_fofUri, options: xhrPollingOptions);
 
       _integrationSuite(
           'xhr-polling', createEchoClient, createCorClient, create404Client);
     });
 
     test('disposal should close the client', () async {
-      final client = new SockJSClient(_echoUri);
+      final client = SockJSClient(_echoUri);
       await client.onOpen.first;
       // ignore: unawaited_futures
       client.dispose();
@@ -86,7 +85,7 @@ void main() {
     });
 
     test('closing the client should trigger disposal', () async {
-      final client = new SockJSClient(_echoUri);
+      final client = SockJSClient(_echoUri);
       await client.onOpen.first;
       client.close();
       await Future.wait([client.onClose.first, client.didDispose]);
@@ -116,7 +115,7 @@ void _integrationSuite(
     client = createEchoClient();
     await client.onOpen.first;
 
-    final c = new Completer<Null>();
+    final c = Completer<Null>();
     final echos = <String>[];
     client.onMessage.listen((message) {
       echos.add(message.data);

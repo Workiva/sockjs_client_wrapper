@@ -24,7 +24,7 @@ void main() {
   test(
       'new SockJSClient() should throw a MissingSockJSLibError when the '
       'sockjs.js library is missing', () {
-    expect(() => new SockJSClient(Uri.parse('http://localhost:8000/echo')),
-        throwsA(const isInstanceOf<MissingSockJSLibError>()));
+    expect(() => SockJSClient(Uri.parse('http://localhost:8000/echo')),
+        throwsA(isA<MissingSockJSLibError>()));
   });
 }

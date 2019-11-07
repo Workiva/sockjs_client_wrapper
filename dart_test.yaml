@@ -1,18 +1,3 @@
-# Dart 1
-# ------
-#
-# Run tests:
-#
-#     $ pub run dart_dev test
-#
-#
-# Dart 2
-# ------
-#
-# Run tests:
-#
-#     $ node tool/server.js
-#     $ pub run build_runner test
 platforms:
 - chrome
 
