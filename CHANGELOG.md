@@ -1,3 +1,11 @@
+## 1.0.14
+
+- Raise Dart SDK minimum to 2.4.0
+
+## 1.06 - 1.0.13
+
+- Internal changes and CI updates.
+
 ## 1.0.5
 
 - Dart 2 compatible.
@@ -5,7 +13,7 @@
 ## 1.0.4
 
 - Updated the SockJS library to v1.1.5 to pull in a fix for an issue
-  where xhr_streaming loops infinitely after the connection closes. 
+  where xhr_streaming loops infinitely after the connection closes.
 
 ## 1.0.3
 
