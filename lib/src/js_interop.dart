@@ -69,6 +69,12 @@ class SockJSCloseEvent {
   external bool get wasClean;
 }
 
+/// Interface definition for the JS "heartbeat" event that is emitted from the
+/// SockJS client.
+@JS()
+@anonymous
+class SockJSHeartbeatEvent {}
+
 /// Interface definition for the JS "message" event that is emitted from the
 /// SockJS client.
 @JS()

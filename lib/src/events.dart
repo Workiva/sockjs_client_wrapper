@@ -35,6 +35,13 @@ class SockJSCloseEvent extends SockJSEvent {
   SockJSCloseEvent(this.code, this.reason, {this.wasClean}) : super._('close');
 }
 
+/// Event that represents a heartbeat received by a SockJS Client from the
+/// server.
+class SockJSHeartbeatEvent extends SockJSEvent {
+  /// Constructs a [SockJSHeartbeatEvent].
+  SockJSHeartbeatEvent() : super._('heartbeat');
+}
+
 /// Event that represents a message received by a SockJS Client from the server.
 class SockJSMessageEvent extends SockJSEvent {
   /// Message payload.

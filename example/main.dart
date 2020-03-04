@@ -27,6 +27,10 @@ Future<Null> main() async {
     print('OPEN: ${event.transport} ${event.url}');
   });
 
+  socket.onHeartbeat.listen((event) {
+    print('HEARTBEAT');
+  });
+
   socket.onMessage.listen((event) {
     print('MSG: ${event.data}');
   });

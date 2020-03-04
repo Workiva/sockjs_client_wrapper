@@ -16,7 +16,7 @@ var http = require('http');
 var sockjs = require('sockjs');
 
 var options = {
-    heartbeat_delay: 5000,
+    heartbeat_delay: 1000,
     sockjs_url: 'https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js',
 };
 var echo = sockjs.createServer(options);

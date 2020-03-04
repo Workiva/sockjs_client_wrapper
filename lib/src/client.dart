@@ -48,6 +48,8 @@ class SockJSClient extends Disposable {
   // Event stream controllers.
   final StreamController<SockJSCloseEvent> _onCloseController =
       StreamController<SockJSCloseEvent>.broadcast();
+  final StreamController<SockJSHeartbeatEvent> _onHeartbeatController =
+      StreamController<SockJSHeartbeatEvent>.broadcast();
   final StreamController<SockJSMessageEvent> _onMessageController =
       StreamController<SockJSMessageEvent>.broadcast();
   final StreamController<SockJSOpenEvent> _onOpenController =
@@ -78,10 +80,12 @@ class SockJSClient extends Disposable {
       throw MissingSockJSLibError();
     }
     manageStreamController(_onCloseController);
+    manageStreamController(_onHeartbeatController);
     manageStreamController(_onMessageController);
     manageStreamController(_onOpenController);
 
     _addManagedEventListenerToJSClient('close', _onClose);
+    _addManagedEventListenerToJSClient('heartbeat', _onHeartbeat);
     _addManagedEventListenerToJSClient('message', _onMessage);
     _addManagedEventListenerToJSClient('open', _onOpen);
 
@@ -98,6 +102,9 @@ class SockJSClient extends Disposable {
   ///
   /// The event will include the close code and reason, if available.
   Stream<SockJSCloseEvent> get onClose => _onCloseController.stream;
+
+  /// A stream of heartbeat events received from the server.
+  Stream<SockJSHeartbeatEvent> get onHeartbeat => _onHeartbeatController.stream;
 
   /// A stream of message events received from the server.
   ///
@@ -156,6 +163,10 @@ class SockJSClient extends Disposable {
         event.reason,
         // ignore: avoid_as
         wasClean: event.wasClean));
+  }
+
+  void _onHeartbeat(js_interop.SockJSHeartbeatEvent event) {
+    _onHeartbeatController.add(SockJSHeartbeatEvent());
   }
 
   void _onMessage(js_interop.SockJSMessageEvent event) {

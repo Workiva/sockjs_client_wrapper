@@ -15,7 +15,7 @@
 var http = require('http');
 var sockjs = require('sockjs');
 
-var echo = sockjs.createServer();
+var echo = sockjs.createServer({heartbeat_delay: 500});
 echo.on('connection', function(conn) {
     conn.on('data', function(message) {
         console.log('[echo] "' + message + '"');

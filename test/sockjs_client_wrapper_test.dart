@@ -131,6 +131,17 @@ void _integrationSuite(
     expect(echos, equals(['message1', 'message2']));
   });
 
+  test('client receiving heartbeats from the server', () async {
+    client = createEchoClient();
+    await client.onOpen.first;
+    await client.onHeartbeat.take(2).toList();
+    client.close();
+  },
+      // Skip the heartbeat test when the transport is on an actual websocket,
+      // since websockets support a ping/pong protocol that our test node sockjs
+      // server uses instead of sending an `h` frame.
+      skip: expectedTransport == 'websocket');
+
   test('client closing the connection', () async {
     client = createEchoClient();
     await client.onOpen.first;
