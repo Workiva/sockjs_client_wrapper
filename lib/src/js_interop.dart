@@ -15,7 +15,12 @@
 @JS()
 library sockjs_client_wrapper.src.js_interop;
 
+import 'dart:js' show context;
+
 import 'package:js/js.dart';
+
+/// Returns true if SockJS is defined on the window.
+bool get hasSockJS => context['SockJS'] != null;
 
 /// Interface of the external `SockJS` object used for JS interop.
 @JS()
