@@ -18,6 +18,16 @@ limitations under the License.
 <html>
   <head>
     <title>sockjs_client_wrapper_test</title>
+    <script>
+      // Workaround to Chrome 86 DDC issues:
+      // https://github.com/dart-lang/sdk/issues/43193
+      if (typeof window.MemoryInfo == "undefined") {
+        if (typeof window.performance.memory != "undefined") {
+          window.MemoryInfo = function () {};
+          window.MemoryInfo.prototype = window.performance.memory.__proto__;
+        }
+      }
+    </script>
     <script src="packages/sockjs_client_wrapper/sockjs.js"></script>
     <link rel="x-dart-test"  href="sockjs_client_wrapper_test.dart">
     <script src="packages/test/dart.js"></script>

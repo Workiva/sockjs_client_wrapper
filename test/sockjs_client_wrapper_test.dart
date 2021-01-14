@@ -13,6 +13,7 @@
 // limitations under the License.
 
 @TestOn('browser')
+@Timeout(Duration(seconds: 5))
 library sockjs_client.test.sockjs_client_test;
 
 import 'dart:async';
@@ -22,6 +23,7 @@ import 'package:test/test.dart';
 
 import 'package:sockjs_client_wrapper/src/client.dart';
 
+final _badUri = Uri.parse('http://localhost:9999');
 final _echoUri = Uri.parse('http://localhost:8000/echo');
 final _corUri = Uri.parse('http://localhost:8000/cor');
 final _fofUri = Uri.parse('http://localhost:8600/404');
@@ -74,6 +76,11 @@ void main() {
 
       _integrationSuite(
           'xhr-polling', createEchoClient, createCorClient, create404Client);
+    });
+
+    test('throws if connection fails', () async {
+      final client = SockJSClient(_badUri);
+      expect(client.onOpen.first, throwsA(isNot(isA<MissingSockJSLibError>())));
     });
 
     test('disposal should close the client', () async {
