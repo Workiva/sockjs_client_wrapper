@@ -1,3 +1,8 @@
+## 1.0.15
+
+- Only throw a `MissingSockJSLibError` if creating the client fails _and_
+`SockJS` is not defined on the window. This prevents swallowing of other errors.
+
 ## 1.0.14
 
 - Raise Dart SDK minimum to 2.4.0
