@@ -42,19 +42,19 @@ Future<Null> main() async {
 
 ```bash
 $ npm install
-$ pub get
+$ dart pub get
 ```
 
 ### Run the example
 
 ```bash
-$ pub run dart_dev serve
+$ dart run dart_dev serve
 ```
 
 ### Run tests
 
 ```bash
-$ pub run dart_dev test
+$ dart run dart_dev test
 ```
 
 [js-dart-package]: https://pub.dartlang.org/packages/js
