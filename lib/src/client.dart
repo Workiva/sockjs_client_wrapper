@@ -147,7 +147,7 @@ class SockJSClient extends Disposable {
   void _addManagedEventListenerToJSClient(String eventName, Function callback) {
     final interopAllowedCallback = allowInterop(callback);
     _jsClient.addEventListener(eventName, interopAllowedCallback);
-    getManagedDisposer(() {
+    getManagedDisposer(() async {
       _jsClient.removeEventListener(eventName, interopAllowedCallback);
     });
   }

@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Update SockJS library to 1.5.0 and add sourcemaps.
+
 ## 1.0.14
 
 - Raise Dart SDK minimum to 2.4.0

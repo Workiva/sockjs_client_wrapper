@@ -4,7 +4,7 @@ ADD . /build/
 
 RUN pub get
 
-RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs_prod.js
+RUN tar -cvzf /build/assets.tar.gz -C lib sockjs.js sockjs.js.map sockjs_prod.js sockjs_prod.js.map
 ARG BUILD_ARTIFACTS_CDN=/build/assets.tar.gz
 
 FROM scratch
