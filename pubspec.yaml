@@ -11,10 +11,7 @@ environment:
 
 dependencies:
   js: ^0.6.1
-  w_common:
-    git:
-      url: git://github.com/zmeggyesi/w_common.git
-      ref: flutter-2-migration
+  w_common: 1.20.4
 
 dependency_overrides:
   logging: ^1.0.1
