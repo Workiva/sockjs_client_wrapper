@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        sdk: [2.7.2]
+        sdk: [2.13.4]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
