@@ -1,3 +1,7 @@
+## 1.1.4
+
+- Dependency upgrades.
+
 ## 1.1.0
 
 - Update SockJS library to 1.5.0 and add sourcemaps.
