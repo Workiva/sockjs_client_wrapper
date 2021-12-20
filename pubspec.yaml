@@ -1,5 +1,5 @@
 name: sockjs_client_wrapper
-version: 1.1.4
+version: 1.1.5
 description: A Dart wrapper for the `sockjs-client` JS library.
 homepage: https://github.com/Workiva/sockjs_client_wrapper
 
