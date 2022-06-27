@@ -1,4 +1,14 @@
-## 1.1.4
+## 1.1.8
+
+- Dependency upgrades.
+- Simplify Github CI workflow.
+- Formatting and analysis lints.
+
+## 1.1.6
+
+- Replace deprecated `pub` commands
+
+## 1.1.4 - 1.1.5
 
 - Dependency upgrades.
 
