@@ -1,3 +1,7 @@
+## 1.1.9
+
+- CI tweaks.
+
 ## 1.1.8
 
 - Dependency upgrades.
