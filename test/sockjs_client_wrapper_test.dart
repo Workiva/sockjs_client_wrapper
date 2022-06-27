@@ -18,7 +18,6 @@ library sockjs_client.test.sockjs_client_test;
 
 import 'dart:async';
 
-import 'package:sockjs_client_wrapper/sockjs_client_wrapper.dart';
 import 'package:test/test.dart';
 
 import 'package:sockjs_client_wrapper/src/client.dart';
@@ -130,7 +129,9 @@ void _integrationSuite(
         c.complete();
       }
     });
-    client..send('message1')..send('message2');
+    client
+      ..send('message1')
+      ..send('message2');
 
     await c.future;
     client.close();

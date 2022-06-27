@@ -15,7 +15,6 @@
 @TestOn('browser')
 library sockjs_client.test.sockjs_client_test;
 
-import 'package:sockjs_client_wrapper/sockjs_client_wrapper.dart';
 import 'package:test/test.dart';
 
 import 'package:sockjs_client_wrapper/src/client.dart';

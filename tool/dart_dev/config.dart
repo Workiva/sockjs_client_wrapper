@@ -19,6 +19,7 @@ import 'package:dart_dev/dart_dev.dart';
 
 final config = {
   ...coreConfig,
+  'format': FormatTool()..formatter = Formatter.dartFormat,
   'test': CompoundTool()
     ..addTool(DevTool.fromFunction(startTestServer), alwaysRun: true)
     ..addTool(TestTool(), argMapper: takeAllArgs)
