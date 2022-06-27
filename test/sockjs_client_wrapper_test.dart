@@ -129,7 +129,9 @@ void _integrationSuite(
         c.complete();
       }
     });
-    client..send('message1')..send('message2');
+    client
+      ..send('message1')
+      ..send('message2');
 
     await c.future;
     client.close();
