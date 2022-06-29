@@ -187,10 +187,14 @@ class SockJSOptions {
   /// can be useful if you need to disable certain fallback transports.
   final List<String> transports;
 
+  // The minimum timeout, in milliseconds.  If sockJS's internally calculated
+  // timeout is higher, that will be used instead.
+  final int timeout;
+
   /// Construct a [SockJSOptions] instance to be passed to the [SockJSClient]
   /// constructor.
-  SockJSOptions({this.server, this.transports});
+  SockJSOptions({this.server, this.transports, this.timeout});
 
   js_interop.SockJSOptions _toJs() =>
-      js_interop.SockJSOptions(server: server, transports: transports);
+      js_interop.SockJSOptions(server: server, transports: transports, timeout: timeout);
 }

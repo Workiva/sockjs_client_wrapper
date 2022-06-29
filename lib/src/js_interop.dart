@@ -93,7 +93,7 @@ class SockJSOptions {
   /// Example:
   ///
   ///     {server: 'foo', transports: ['websocket', 'xhr-polling']}
-  external factory SockJSOptions({String server, List<String> transports});
+  external factory SockJSOptions({String server, List<String> transports, int timeout});
 
   /// String to append to url for actual data connection.
   ///

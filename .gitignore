@@ -3,3 +3,4 @@ pubspec.lock
 .dart_tool
 .packages
 node_modules
+/.idea
