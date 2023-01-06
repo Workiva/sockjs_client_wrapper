@@ -1,3 +1,7 @@
+## 1.1.12
+
+- Update SockJS library to 1.6.1.
+
 ## 1.1.9
 
 - CI tweaks.
