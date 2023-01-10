@@ -13,8 +13,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        sdk: [ 2.13.4, stable, beta, dev ]
+        sdk:
+          - 2.13.4
+          - stable
+          - beta
+          # Commented out until we upgrade to Dart 3
+          # - dev
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
