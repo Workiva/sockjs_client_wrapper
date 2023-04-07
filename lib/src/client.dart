@@ -154,21 +154,16 @@ class SockJSClient extends Disposable {
 
   void _onClose(js_interop.SockJSCloseEvent event) {
     _onCloseController.add(SockJSCloseEvent(
-        // ignore: avoid_as
         event.code,
-        // ignore: avoid_as
         event.reason,
-        // ignore: avoid_as
         wasClean: event.wasClean));
   }
 
   void _onMessage(js_interop.SockJSMessageEvent event) {
-    // ignore: avoid_as
     _onMessageController.add(SockJSMessageEvent(event.data));
   }
 
-  // ignore: avoid_annotating_with_dynamic
-  void _onOpen(dynamic _) {
+  void _onOpen(_) {
     _onOpenController
         .add(SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
   }
