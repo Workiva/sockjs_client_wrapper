@@ -159,7 +159,7 @@ class SockJSClient extends Disposable {
         // ignore: avoid_as
         event.reason,
         // ignore: avoid_as
-        event.wasClean));
+        wasClean: event.wasClean));
   }
 
   void _onMessage(js_interop.SockJSMessageEvent event) {

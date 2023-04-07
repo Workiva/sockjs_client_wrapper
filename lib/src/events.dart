@@ -32,7 +32,7 @@ class SockJSCloseEvent extends SockJSEvent {
   final bool wasClean;
 
   /// Constructs a [SockJSCloseEvent].
-  SockJSCloseEvent(this.code, this.reason, this.wasClean) : super._('close');
+  SockJSCloseEvent(this.code, this.reason, {required this.wasClean}) : super._('close');
 }
 
 /// Event that represents a message received by a SockJS Client from the server.
