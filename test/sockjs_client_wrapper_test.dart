@@ -105,25 +105,25 @@ void _integrationSuite(
   SockJSClient createCorClient(),
   SockJSClient create404Client(),
 ) {
-  SockJSClient client;
+  SockJSClient? client;
 
   tearDown(() async {
-    await client.dispose();
+    await client!.dispose();
     client = null;
   });
 
   test('connecting to a SockJS server', () async {
     client = createEchoClient();
-    expect((await client.onOpen.first).transport, equals(expectedTransport));
+    expect((await client!.onOpen.first).transport, equals(expectedTransport));
   });
 
   test('sending and receiving messages', () async {
     client = createEchoClient();
-    await client.onOpen.first;
+    await client!.onOpen.first;
 
     final c = Completer<Null>();
     final echos = <String>[];
-    client.onMessage.listen((message) {
+    client!.onMessage.listen((message) {
       echos.add(message.data);
       if (echos.length == 2) {
         c.complete();
@@ -134,45 +134,45 @@ void _integrationSuite(
       ..send('message2');
 
     await c.future;
-    client.close();
+    client!.close();
 
     expect(echos, equals(['message1', 'message2']));
   });
 
   test('client closing the connection', () async {
     client = createEchoClient();
-    await client.onOpen.first;
-    client.close();
-    await client.onClose.first;
+    await client!.onOpen.first;
+    client!.close();
+    await client!.onClose.first;
   });
 
   test('client closing the connection with code and reason', () async {
     client = createEchoClient();
-    await client.onOpen.first;
-    client.close(4001, 'Custom close.');
-    final event = await client.onClose.first;
+    await client!.onOpen.first;
+    client!.close(4001, 'Custom close.');
+    final event = await client!.onClose.first;
     expect(event.code, equals(4001));
     expect(event.reason, equals('Custom close.'));
   });
 
   test('server closing the connection', () async {
     client = createCorClient();
-    await client.onOpen.first;
-    client.send('close');
-    await client.onClose.first;
+    await client!.onOpen.first;
+    client!.send('close');
+    await client!.onClose.first;
   });
 
   test('server closing the connection with code and reason', () async {
     client = createCorClient();
-    await client.onOpen.first;
-    client.send('close::4001::Custom close.');
-    final event = await client.onClose.first;
+    await client!.onOpen.first;
+    client!.send('close::4001::Custom close.');
+    final event = await client!.onClose.first;
     expect(event.code, equals(4001));
     expect(event.reason, equals('Custom close.'));
   });
 
   test('handle failed connection', () async {
     client = create404Client();
-    await client.onClose.first;
+    await client!.onClose.first;
   });
 }

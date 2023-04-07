@@ -29,7 +29,7 @@ class SockJSCloseEvent extends SockJSEvent {
   final String reason;
 
   /// Whether or not the close was "clean".
-  final bool wasClean;
+  final bool? wasClean;
 
   /// Constructs a [SockJSCloseEvent].
   SockJSCloseEvent(this.code, this.reason, {this.wasClean}) : super._('close');

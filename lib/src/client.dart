@@ -43,7 +43,7 @@ class SockJSClient extends Disposable {
   String get disposableTypeName => 'SockJSClient';
 
   // The native SockJS client object.
-  js_interop.SockJS _jsClient;
+  late js_interop.SockJS _jsClient;
 
   // Event stream controllers.
   final StreamController<SockJSCloseEvent> _onCloseController =
@@ -70,7 +70,7 @@ class SockJSClient extends Disposable {
   ///     final options = new SockJSOptions(
   ///         transports: ['websocket', 'xhr-streaming', 'xhr-polling']);
   ///     final client = new SockJSClient(uri, options: options);
-  SockJSClient(Uri uri, {SockJSOptions options}) {
+  SockJSClient(Uri uri, {SockJSOptions? options}) {
     try {
       _jsClient = js_interop.SockJS(uri.toString(), null, options?._toJs());
       // ignore: avoid_catches_without_on_clauses
@@ -120,7 +120,7 @@ class SockJSClient extends Disposable {
   /// Close this client.
   ///
   /// Optionally, a [closeCode] and [reason] can be provided.
-  void close([int closeCode, String reason]) {
+  void close([int? closeCode, String? reason]) {
     _jsClient.close(closeCode, reason);
   }
 
@@ -179,13 +179,13 @@ class SockJSOptions {
   /// String to append to url for actual data connection.
   ///
   /// Defaults to a random 4 digit number.
-  final String server;
+  final String? server;
 
   /// A list of transports that may be used by SockJS.
   ///
   /// By default, all available transports will be used. Specifying a whitelist
   /// can be useful if you need to disable certain fallback transports.
-  final List<String> transports;
+  final List<String>? transports;
 
   /// Construct a [SockJSOptions] instance to be passed to the [SockJSClient]
   /// constructor.

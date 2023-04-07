@@ -4,7 +4,7 @@ description: A Dart wrapper for the `sockjs-client` JS library.
 homepage: https://github.com/Workiva/sockjs_client_wrapper
 
 environment:
-  sdk: ">=2.11.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   js: ^0.6.1

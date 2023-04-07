@@ -30,15 +30,15 @@ final config = {
     ..addTool(DevTool.fromFunction(stopExampleServer), alwaysRun: true),
 };
 
-Process _exampleServer;
-Process _testServer;
+Process? _exampleServer;
+Process? _testServer;
 
 Future<int> startExampleServer(DevToolExecutionContext _) async {
   _exampleServer = await Process.start('node', ['example/server.js'],
       mode: ProcessStartMode.inheritStdio);
   return firstOf([
     // Exit early if it fails to start,
-    _exampleServer.exitCode,
+    _exampleServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
     Future.delayed(Duration(seconds: 2)).then((_) => 0),
   ]);
@@ -55,7 +55,7 @@ Future<int> startTestServer(DevToolExecutionContext _) async {
       mode: ProcessStartMode.inheritStdio);
   return firstOf([
     // Exit early if it fails to start,
-    _testServer.exitCode,
+    _testServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
     Future.delayed(Duration(seconds: 2)).then((_) => 0),
   ]);
