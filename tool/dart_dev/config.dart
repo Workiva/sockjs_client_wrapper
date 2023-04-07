@@ -46,7 +46,7 @@ Future<int> startExampleServer(DevToolExecutionContext _) async {
 
 Future<int> stopExampleServer(DevToolExecutionContext _) async {
   _exampleServer?.kill();
-  await _exampleServer.exitCode;
+  await _exampleServer?.exitCode;
   return 0;
 }
 
@@ -63,7 +63,7 @@ Future<int> startTestServer(DevToolExecutionContext _) async {
 
 Future<int> stopTestServer(DevToolExecutionContext _) async {
   _testServer?.kill();
-  await _testServer.exitCode;
+  await _testServer?.exitCode;
   return 0;
 }
 
