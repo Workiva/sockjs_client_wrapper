@@ -25,8 +25,7 @@ import 'package:sockjs_client_wrapper/src/js_interop.dart' as js_interop;
 /// Error thrown when the required `sockjs.js` library has not been loaded.
 class MissingSockJSLibError extends Error {
   @override
-  String toString() =>
-      'Missing SockJS Library: sockjs.js or sockjs_prod.js must be loaded '
+  String toString() => 'Missing SockJS Library: sockjs.js or sockjs_prod.js must be loaded '
       '(details: https://goo.gl/VGM6Pr).';
 }
 
@@ -46,12 +45,9 @@ class SockJSClient extends Disposable {
   late js_interop.SockJS _jsClient;
 
   // Event stream controllers.
-  final StreamController<SockJSCloseEvent> _onCloseController =
-      StreamController<SockJSCloseEvent>.broadcast();
-  final StreamController<SockJSMessageEvent> _onMessageController =
-      StreamController<SockJSMessageEvent>.broadcast();
-  final StreamController<SockJSOpenEvent> _onOpenController =
-      StreamController<SockJSOpenEvent>.broadcast();
+  final StreamController<SockJSCloseEvent> _onCloseController = StreamController<SockJSCloseEvent>.broadcast();
+  final StreamController<SockJSMessageEvent> _onMessageController = StreamController<SockJSMessageEvent>.broadcast();
+  final StreamController<SockJSOpenEvent> _onOpenController = StreamController<SockJSOpenEvent>.broadcast();
 
   /// Constructs a new [SockJSClient] that will attempt to connect to a SockJS
   /// server at the given [uri].
@@ -159,7 +155,7 @@ class SockJSClient extends Disposable {
         // ignore: avoid_as
         event.reason,
         // ignore: avoid_as
-        wasClean: event.wasClean));
+        event.wasClean));
   }
 
   void _onMessage(js_interop.SockJSMessageEvent event) {
@@ -169,8 +165,7 @@ class SockJSClient extends Disposable {
 
   // ignore: avoid_annotating_with_dynamic
   void _onOpen(dynamic _) {
-    _onOpenController
-        .add(SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
+    _onOpenController.add(SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
   }
 }
 
@@ -191,6 +186,5 @@ class SockJSOptions {
   /// constructor.
   SockJSOptions({this.server, this.transports});
 
-  js_interop.SockJSOptions _toJs() =>
-      js_interop.SockJSOptions(server: server, transports: transports);
+  js_interop.SockJSOptions _toJs() => js_interop.SockJSOptions(server: server, transports: transports);
 }
