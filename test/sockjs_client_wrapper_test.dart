@@ -129,7 +129,7 @@ void _integrationSuite(
         c.complete();
       }
     });
-    client
+    client!
       ..send('message1')
       ..send('message2');
 
