@@ -154,9 +154,10 @@ class SockJSClient extends Disposable {
 
   void _onClose(js_interop.SockJSCloseEvent event) {
     _onCloseController.add(SockJSCloseEvent(
-        event.code,
-        event.reason,
-        wasClean: event.wasClean));
+      event.code,
+      event.reason,
+      wasClean: event.wasClean,
+    ));
   }
 
   void _onMessage(js_interop.SockJSMessageEvent event) {
