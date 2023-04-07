@@ -36,7 +36,7 @@ Process? _testServer;
 Future<int> startExampleServer(DevToolExecutionContext _) async {
   _exampleServer = await Process.start('node', ['example/server.js'],
       mode: ProcessStartMode.inheritStdio);
-  return firstOf([
+  return Future.any([
     // Exit early if it fails to start,
     _exampleServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
@@ -53,7 +53,7 @@ Future<int> stopExampleServer(DevToolExecutionContext _) async {
 Future<int> startTestServer(DevToolExecutionContext _) async {
   _testServer = await Process.start('node', ['tool/server.js'],
       mode: ProcessStartMode.inheritStdio);
-  return firstOf([
+  return Future.any([
     // Exit early if it fails to start,
     _testServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
@@ -65,16 +65,4 @@ Future<int> stopTestServer(DevToolExecutionContext _) async {
   _testServer?.kill();
   await _testServer?.exitCode;
   return 0;
-}
-
-Future<T> firstOf<T>(Iterable<Future<T>> futures) {
-  final c = Completer<T>();
-  for (final future in futures) {
-    future.then((v) {
-      if (!c.isCompleted) {
-        c.complete(v);
-      }
-    }).catchError(c.completeError);
-  }
-  return c.future;
 }
