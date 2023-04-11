@@ -6,6 +6,12 @@ homepage: https://github.com/Workiva/sockjs_client_wrapper
 environment:
   sdk: ">=2.11.0 <3.0.0"
 
+dependency_overrides:
+  dart_dev:
+    git:
+      url: git@github.com:Workiva/dart_dev.git
+      ref: background_process_tool
+
 dependencies:
   js: ^0.6.1
   w_common: '>=2.0.0 <4.0.0'
