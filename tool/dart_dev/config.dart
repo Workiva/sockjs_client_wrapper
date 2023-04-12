@@ -30,15 +30,15 @@ final config = {
     ..addTool(DevTool.fromFunction(stopExampleServer), alwaysRun: true),
 };
 
-Process _exampleServer;
-Process _testServer;
+Process? _exampleServer;
+Process? _testServer;
 
 Future<int> startExampleServer(DevToolExecutionContext _) async {
   _exampleServer = await Process.start('node', ['example/server.js'],
       mode: ProcessStartMode.inheritStdio);
-  return firstOf([
+  return Future.any([
     // Exit early if it fails to start,
-    _exampleServer.exitCode,
+    _exampleServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
     Future.delayed(Duration(seconds: 2)).then((_) => 0),
   ]);
@@ -46,16 +46,16 @@ Future<int> startExampleServer(DevToolExecutionContext _) async {
 
 Future<int> stopExampleServer(DevToolExecutionContext _) async {
   _exampleServer?.kill();
-  await _exampleServer.exitCode;
+  await _exampleServer?.exitCode;
   return 0;
 }
 
 Future<int> startTestServer(DevToolExecutionContext _) async {
   _testServer = await Process.start('node', ['tool/server.js'],
       mode: ProcessStartMode.inheritStdio);
-  return firstOf([
+  return Future.any([
     // Exit early if it fails to start,
-    _testServer.exitCode,
+    _testServer!.exitCode,
     // otherwise just wait a little bit to ensure it starts up completely.
     Future.delayed(Duration(seconds: 2)).then((_) => 0),
   ]);
@@ -63,18 +63,6 @@ Future<int> startTestServer(DevToolExecutionContext _) async {
 
 Future<int> stopTestServer(DevToolExecutionContext _) async {
   _testServer?.kill();
-  await _testServer.exitCode;
+  await _testServer?.exitCode;
   return 0;
-}
-
-Future<T> firstOf<T>(Iterable<Future<T>> futures) {
-  final c = Completer<T>();
-  for (final future in futures) {
-    future.then((v) {
-      if (!c.isCompleted) {
-        c.complete(v);
-      }
-    }).catchError(c.completeError);
-  }
-  return c.future;
 }

@@ -26,7 +26,7 @@ bool get hasSockJS => context['SockJS'] != null;
 @JS()
 class SockJS {
   /// Constructs a SockJS Client.
-  external SockJS(String url, [Null _reserved, SockJSOptions options]);
+  external SockJS(String url, [Null _reserved, SockJSOptions? options]);
 
   /// The state of the client.
   ///
@@ -50,7 +50,7 @@ class SockJS {
   external void addEventListener(String eventName, Function callback);
 
   /// Closes this client.
-  external void close([int closeCode, String reason]);
+  external void close([int? closeCode, String? reason]);
 
   /// Removes an event listener that was registered with [addEventListener].
   external void removeEventListener(String eventName, Function callback);
@@ -93,7 +93,7 @@ class SockJSOptions {
   /// Example:
   ///
   ///     {server: 'foo', transports: ['websocket', 'xhr-polling']}
-  external factory SockJSOptions({String server, List<String> transports});
+  external factory SockJSOptions({String? server, List<String>? transports});
 
   /// String to append to url for actual data connection.
   ///
