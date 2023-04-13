@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Migrate to null safety. SDK constraint raised to 2.12
+
 ## 1.1.12
 
 - Update SockJS library to 1.6.1.
