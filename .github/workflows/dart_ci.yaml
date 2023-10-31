@@ -42,3 +42,5 @@ jobs:
         run: dart analyze
       - name: Run tests
         run: dart run dart_dev test
+        with:
+          sdk: '2.19.6'
