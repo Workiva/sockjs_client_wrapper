@@ -41,6 +41,9 @@ class SockJS {
   /// E.g. "websocket" or "xhr-polling".
   external String get transport;
 
+  /// A more specific URL used by the underlying transport. For debug use only.
+  external String? get transportUrl;
+
   /// The URL of the server to which this client connected.
   external String get url;
 
