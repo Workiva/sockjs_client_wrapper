@@ -1,3 +1,9 @@
+## 1.3.0
+
+- Add `debugUrl` field to `SockJSOpenEvent`, which will be set to the full
+SockJS URL connected to by the underlying transport when using the unminified
+`sockjs.js` asset.
+
 ## 1.2.0
 
 - Migrate to null safety. SDK constraint raised to 2.12

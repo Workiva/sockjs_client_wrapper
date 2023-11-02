@@ -165,8 +165,11 @@ class SockJSClient extends Disposable {
   }
 
   void _onOpen(_) {
-    _onOpenController
-        .add(SockJSOpenEvent(_jsClient.transport, Uri.parse(_jsClient.url)));
+    _onOpenController.add(SockJSOpenEvent(
+      _jsClient.transport,
+      Uri.parse(_jsClient.url),
+      Uri.parse(_jsClient.transportUrl ?? ''),
+    ));
   }
 }
 

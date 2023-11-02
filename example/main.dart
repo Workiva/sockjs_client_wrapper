@@ -18,13 +18,13 @@ import 'package:sockjs_client_wrapper/sockjs_client_wrapper.dart';
 
 Future<Null> main() async {
   print('Starting example');
-  final echoUri = Uri.parse('http://localhost:9999/echo');
+  final echoUri = Uri.parse('http://localhost:9009/echo');
   final options =
       SockJSOptions(transports: ['websocket', 'xhr-streaming', 'xhr-polling']);
   final socket = SockJSClient(echoUri, options: options);
 
   socket.onOpen.listen((event) {
-    print('OPEN: ${event.transport} ${event.url}');
+    print('OPEN: ${event.transport} ${event.url} ${event.debugUrl}');
   });
 
   socket.onMessage.listen((event) {

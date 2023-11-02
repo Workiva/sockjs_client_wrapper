@@ -48,6 +48,9 @@ class SockJSMessageEvent extends SockJSEvent {
 /// Event that represents the opening (successful connection) of a SockJS
 /// Client to the server.
 class SockJSOpenEvent extends SockJSEvent {
+  /// More specific URL used by the underlying transport. For debug use only.
+  final Uri debugUrl;
+
   /// The transport that was used to successfully connect to the server.
   ///
   /// E.g. "websocket" or "xhr-polling".
@@ -57,5 +60,5 @@ class SockJSOpenEvent extends SockJSEvent {
   final Uri url;
 
   /// Constructs a [SockJSOpenEvent].
-  SockJSOpenEvent(this.transport, this.url) : super._('open');
+  SockJSOpenEvent(this.transport, this.url, this.debugUrl) : super._('open');
 }
