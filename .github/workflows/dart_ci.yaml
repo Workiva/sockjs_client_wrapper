@@ -41,4 +41,7 @@ jobs:
         run: dart analyze
       - name: Run tests
         run: dart run dart_dev test
-
+      - uses: anchore/sbom-action@v0
+        with:
+          path: ./
+          format: cyclonedx-json
