@@ -5,5 +5,11 @@
   "dependencies": {
     "sockjs": "^0.3.19"
   },
+  "devDependencies": {
+    "terser": "^5.30.0"
+  },
+  "scripts": {
+    "build": "terser lib/sockjs.js --source-map url=sockjs_prod.js.map -o lib/sockjs_prod.js"
+  },
   "private": true
 }
