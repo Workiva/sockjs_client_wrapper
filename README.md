@@ -1,6 +1,7 @@
 # SockJS Client Wrapper
 
-A Dart wrapper around the [SockJS Client][sockjs-client]. Uses the [`js` Dart package][js-dart-package] to interop with the JS lib. The JS lib is vendored at [`lib/sockjs.js`](./lib/sockjs.js). The vendored lib is of sockjs-client v1.6.1 with one modification: the client does not make a `/info` request when establishing the connection.
+A Dart wrapper around the [SockJS Client][sockjs-client]. Uses the
+[`js` Dart package][js-dart-package] to interop with the JS lib.
 
 ## Usage
 
