@@ -96,6 +96,12 @@ void main() {
       client.close();
       await Future.wait([client.onClose.first, client.didDispose]);
     });
+
+    test('timeout option should set a timeout', () async {
+      final options = SockJSOptions(timeout: 1000);
+      final client = SockJSClient(_echoUri, options: options)..close();
+      expect(client.timeout, equals(1000));
+    });
   });
 }
 

@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'dart:js';
+import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
 import 'package:w_common/disposable_browser.dart';
@@ -116,6 +117,8 @@ class SockJSClient extends Disposable {
   ///
   /// The event will include the selected transport as well as the server URL.
   Stream<SockJSOpenEvent> get onOpen => _onOpenController.stream;
+
+  num get timeout => js_util.getProperty(_jsClient, '_timeout');
 
   /// Close this client.
   ///
