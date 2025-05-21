@@ -18,6 +18,7 @@ import 'dart:js';
 import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
+import 'package:opentelemetry/api.dart';
 import 'package:w_common/disposable_browser.dart';
 
 import 'package:sockjs_client_wrapper/src/events.dart';
@@ -156,6 +157,11 @@ class SockJSClient extends Disposable {
   }
 
   void _onClose(js_interop.SockJSCloseEvent event) {
+    spanFromContext(Context.current).addEvent('sockjs.close', attributes: [
+      Attribute.fromString('sockjs.transport', _jsClient.transport),
+      Attribute.fromInt('sockjs.close.code', event.code),
+      Attribute.fromString('sockjs.close.reason', event.reason),
+    ]);
     _onCloseController.add(SockJSCloseEvent(
       event.code,
       event.reason,
@@ -168,6 +174,9 @@ class SockJSClient extends Disposable {
   }
 
   void _onOpen(_) {
+    spanFromContext(Context.current).addEvent('sockjs.open', attributes: [
+      Attribute.fromString('sockjs.transport', _jsClient.transport),
+    ]);
     _onOpenController.add(SockJSOpenEvent(
       _jsClient.transport,
       Uri.parse(_jsClient.url),
