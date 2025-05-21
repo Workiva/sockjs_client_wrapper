@@ -9,6 +9,7 @@ environment:
 dependencies:
   js: ^0.6.1
   w_common: '>=2.0.0 <4.0.0'
+  opentelemetry: ^0.18.10
 
 dev_dependencies:
   build_runner: ^2.1.2

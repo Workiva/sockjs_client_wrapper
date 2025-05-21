@@ -18,6 +18,7 @@ import 'dart:js';
 import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
+import 'package:opentelemetry/api.dart';
 import 'package:w_common/disposable_browser.dart';
 
 import 'package:sockjs_client_wrapper/src/events.dart';
@@ -54,6 +55,16 @@ class SockJSClient extends Disposable {
   final StreamController<SockJSOpenEvent> _onOpenController =
       StreamController<SockJSOpenEvent>.broadcast();
 
+  /// Context used to capture open and close events while establishing the
+  /// initial connection.
+  ///
+  /// This value is set to the current context during construction, then set to
+  /// root after the first open or close event. This is to correlate events
+  /// related to initial connection with the construction of this object without
+  /// creating long running traces due to events from much further along in the
+  /// sessions lifetime.
+  Context _context;
+
   /// Constructs a new [SockJSClient] that will attempt to connect to a SockJS
   /// server at the given [uri].
   ///
@@ -71,7 +82,7 @@ class SockJSClient extends Disposable {
   ///     final options = new SockJSOptions(
   ///         transports: ['websocket', 'xhr-streaming', 'xhr-polling']);
   ///     final client = new SockJSClient(uri, options: options);
-  SockJSClient(Uri uri, {SockJSOptions? options}) {
+  SockJSClient(Uri uri, {SockJSOptions? options}) : _context = Context.current {
     try {
       _jsClient = js_interop.SockJS(uri.toString(), null, options?._toJs());
       // ignore: avoid_catches_without_on_clauses
@@ -156,6 +167,13 @@ class SockJSClient extends Disposable {
   }
 
   void _onClose(js_interop.SockJSCloseEvent event) {
+    spanFromContext(_context).addEvent('sockjs.close', attributes: [
+      Attribute.fromString('sockjs.transport', _jsClient.transport),
+      Attribute.fromDouble('sockjs.timeout', timeout.toDouble()),
+      Attribute.fromInt('sockjs.close.code', event.code),
+      Attribute.fromString('sockjs.close.reason', event.reason),
+    ]);
+    _context = Context.root; // Reset context to root for future events.
     _onCloseController.add(SockJSCloseEvent(
       event.code,
       event.reason,
@@ -168,6 +186,11 @@ class SockJSClient extends Disposable {
   }
 
   void _onOpen(_) {
+    spanFromContext(_context).addEvent('sockjs.open', attributes: [
+      Attribute.fromString('sockjs.transport', _jsClient.transport),
+      Attribute.fromDouble('sockjs.timeout', timeout.toDouble()),
+    ]);
+    _context = Context.root; // Reset context to root for future events.
     _onOpenController.add(SockJSOpenEvent(
       _jsClient.transport,
       Uri.parse(_jsClient.url),
