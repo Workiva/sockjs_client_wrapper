@@ -19,8 +19,8 @@ import 'package:sockjs_client_wrapper/sockjs_client_wrapper.dart';
 Future<Null> main() async {
   print('Starting example');
   final echoUri = Uri.parse('http://localhost:9009/echo');
-  final options =
-      SockJSOptions(transports: ['websocket', 'xhr-streaming', 'xhr-polling']);
+  final options = SockJSOptions(
+      transports: ['websocket', 'xhr-streaming', 'xhr-polling'], timeout: 5000);
   final socket = SockJSClient(echoUri, options: options);
 
   socket.onOpen.listen((event) {
